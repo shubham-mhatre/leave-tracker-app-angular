@@ -1,1 +1,20 @@
-<p>layout works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span class="menu">
+        <a mat-button routerLink="/home">Home</a>
+        <a mat-button routerLink="/services">Services</a>
+        <a mat-button routerLink="/contact">Contact</a>
+        <a mat-button routerLink="/about">About</a>
+      </span>
+      <span class="spacer"></span>
+      <span class="user-info">
+        <span>Welcome, {{ loggedInUserData.emailId }}</span>
+        <button mat-stroked-button (click)="logout()">Logout</button>
+      </span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <router-outlet />
+  
+  <!-- used routerOutlet here as layout is parent component & dashboar is it's child
+    after login we are redirecting to dashboard component while displaying navbar from layout component -->

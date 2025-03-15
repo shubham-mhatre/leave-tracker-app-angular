@@ -1,10 +1,9 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span class="menu">
-        <a mat-button routerLink="/home">Home</a>
-        <a mat-button routerLink="/services">Services</a>
-        <a mat-button routerLink="/contact">Contact</a>
-        <a mat-button routerLink="/about">About</a>
+        <a mat-button routerLink="/dashboard">Home</a>
+        <a mat-button routerLink="/employee">Employee</a>
+        <a mat-button routerLink="/leave-request">Leave-Request</a>
       </span>
       <span class="spacer"></span>
       <span class="user-info">
@@ -15,6 +14,6 @@
   </mat-toolbar>
 
   <router-outlet />
-  
+
   <!-- used routerOutlet here as layout is parent component & dashboar is it's child
     after login we are redirecting to dashboard component while displaying navbar from layout component -->

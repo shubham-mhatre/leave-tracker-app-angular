@@ -1,17 +1,5 @@
-.no-data {
-    text-align: center;
-    font-size: 16px;
-    color: gray;
-    font-style: italic;
-    padding: 20px;
-  }
-  
-  .no-data-row {
-    text-align: center;
-  }
-  
 
-  .table-container {
+.table-container {
     max-width: 95%;
     margin: 20px auto;
     padding: 20px;
@@ -20,8 +8,13 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
   
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
   .table-title {
-    text-align: center;
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -63,4 +56,37 @@
   .edit-btn:hover, .delete-btn:hover {
     opacity: 0.7;
   }
+
   
+  
+  
+  .drawer-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5%;
+  }
+
+  .drawer-panel {
+    width: 500px;  /* Increased width */
+    padding: 20px;
+    background: #f5f5f5;
+    overflow: hidden;  /* Prevents unnecessary scrolling */
+}
+
+.employee-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* Two equal columns */
+    gap: 15px; /* Adds space between fields */
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 15px;
+    grid-column: span 2; /* Ensures full-width fields (e.g., title) take full row */
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    grid-column: span 2; /* Ensures buttons align properly */
+} 

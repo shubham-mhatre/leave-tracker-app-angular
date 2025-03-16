@@ -9,14 +9,18 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Employee } from '../../models/model';
 import { MasterService } from '../../services/master.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatDrawer } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @Component({
   selector: 'app-employee',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatTooltipModule, MatButtonModule, MatIconModule,MatPaginator,
-    MatSnackBarModule
+    MatSnackBarModule,MatDrawer,MatSidenavModule,MatFormFieldModule,MatInputModule,MatSelectModule
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss'
@@ -24,6 +28,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class EmployeeComponent implements OnInit{
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('drawer') drawer!: MatDrawer;
+
   employeeListData:Employee[]=[];
   constructor(private masterService:MasterService,private snackBar: MatSnackBar){
 
@@ -71,6 +77,11 @@ export class EmployeeComponent implements OnInit{
 
   onDelete(employee: Employee){
 
+  }
+
+  onSave() {
+    console.log('Employee saved!');
+    this.drawer.close();
   }
 
 }

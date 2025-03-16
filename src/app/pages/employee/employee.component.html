@@ -1,70 +1,117 @@
-<div class="table-container">
-    <!-- Table Title -->
-    <h2 class="table-title">Employee List</h2>
+<mat-drawer-container class="drawer-container">
+
+    <!-- drawer to add new employee/user form starts -->
+    <mat-drawer #drawer mode="over" position="end" class="drawer-panel">
+      <div class="drawer-title">Create Employee</div>
+      <form class="employee-form">
+        <!-- Employee Name -->
+        <mat-form-field appearance="outline">
+          <mat-label>Employee Name</mat-label>
+          <input matInput placeholder="Enter Name">
+        </mat-form-field>
   
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 styled-table">
-      
-      <!-- SR No Column -->
-      <ng-container matColumnDef="srNo">
-        <th mat-header-cell *matHeaderCellDef> SR No </th>
-        <td mat-cell *matCellDef="let element; let index = index"> 
-          {{ index + 1 + (paginator.pageSize * paginator.pageIndex) }} 
-        </td>
-      </ng-container>
+        <!-- Email -->
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Enter Email">
+        </mat-form-field>
   
-      <!-- Employee Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Employee Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
-      </ng-container>
+        <!-- Gender -->
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select>
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+          </mat-select>
+        </mat-form-field>
   
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.employeeEmailId}} </td>
-      </ng-container>
+        <!-- Contact Number -->
+        <mat-form-field appearance="outline">
+          <mat-label>Contact Number</mat-label>
+          <input matInput placeholder="Enter Contact Number">
+        </mat-form-field>
   
-      <!-- Gender Column -->
-      <ng-container matColumnDef="gender">
-        <th mat-header-cell *matHeaderCellDef> Gender </th>
-        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-      </ng-container>
+        <!-- Department -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Department</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
   
-      <!-- Contact Number Column -->
-      <ng-container matColumnDef="contact">
-        <th mat-header-cell *matHeaderCellDef> Contact Number </th>
-        <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
-      </ng-container>
+        <!-- Actions -->
+        <div class="form-actions">
+          <button type="button" mat-raised-button color="warn" (click)="drawer.close()">Cancel</button>
+          <button type="button" mat-raised-button color="primary">Save</button>
+        </div>
+      </form>
+    </mat-drawer>
+    <!-- drawer to add new employee/user form ends -->
   
-      <!-- Department Name Column -->
-      <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef> Department Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.departmentName}} </td>
-      </ng-container>
+    <!-- employee/user list grid : starts -->
+    <div class="table-container">
+      <div class="table-header">
+        <div class="table-title">Employee List</div>
+        <button mat-raised-button color="primary" (click)="drawer.open()">+ Create Employee</button>
+      </div>
   
-      <!-- Role Column -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Role </th>
-        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-      </ng-container>
+      <table mat-table [dataSource]="dataSource" class="styled-table">
+        <ng-container matColumnDef="srNo">
+          <th mat-header-cell *matHeaderCellDef> SR No </th>
+          <td mat-cell *matCellDef="let element; let i = index"> 
+            {{ i + 1 + (paginator.pageSize * paginator.pageIndex) }} 
+          </td>
+        </ng-container>
   
-      <!-- Action Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button matTooltip="Edit" (click)="onEdit(element)" class="edit-btn">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button mat-icon-button matTooltip="Delete" (click)="onDelete(element)" class="delete-btn">
-            <i class="fa fa-trash"></i>
-          </button>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
+        </ng-container>
   
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.employeeEmailId}} </td>
+        </ng-container>
   
-    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
-  </div>
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> Gender </th>
+          <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="contact">
+          <th mat-header-cell *matHeaderCellDef> Contact Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef> Department </th>
+          <td mat-cell *matCellDef="let element"> {{element.departmentName}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef> Role </th>
+          <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button matTooltip="Edit">
+               <img src="images/edit.gif" alt="edit"/>
+            </button>
+            <button mat-icon-button matTooltip="Delete">
+                <img src="images/bin.gif" alt="delete"/>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+    </div>
+    <!-- employee/user list grid : ends -->
+
+  </mat-drawer-container>
   

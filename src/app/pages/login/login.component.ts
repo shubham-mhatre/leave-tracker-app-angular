@@ -23,8 +23,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-
-  emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   loginObject:any={
     userName:'',
     password:''

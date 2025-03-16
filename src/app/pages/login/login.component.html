@@ -3,25 +3,41 @@
       <mat-card-title>Leave Tracker Portal Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
+      <form #loginForm="ngForm">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="loginObject.userName" name="userName" type="email" required>
-          <!-- <mat-error *ngIf="!userName">
-            Email is required
-          </mat-error> -->
-          <!-- <mat-error *ngIf="email && !emailPattern.test(loginObject.userName)">
-            Please enter a valid email
-          </mat-error> -->
+          <input matInput #userName="ngModel" [(ngModel)]="loginObject.userName" name="userName" type="email" required
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+            @if(userName.errors?.['required']){
+              <mat-error>
+                Email is required
+              </mat-error>
+            }
+            @if(userName.errors?.['pattern']){
+              <mat-error>
+                Email is not valid
+              </mat-error>
+            }          
         </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
-          <input matInput [(ngModel)]="loginObject.password" name="password" type="password" required>
-          <!-- <mat-error *ngIf="!password">
-            Password is required
-          </mat-error> -->
+          <input matInput #password="ngModel" [(ngModel)]="loginObject.password" name="password" type="password" required
+          minlength="3">
+            @if(password.errors?.['required']){
+              <mat-error>
+                Password is required
+              </mat-error>
+            }
+            @if(password.errors?.['minlength']){
+              <mat-error>
+                minlength for password is 3
+              </mat-error>
+            }
         </mat-form-field>
-        <button mat-flat-button color="primary" type="button" (click)="onLogin()">Login</button>
+
+        <button mat-flat-button color="primary" type="button" (click)="onLogin()" 
+        [disabled]="!loginForm.form.valid">Login</button>
       </form>
     </mat-card-content>
   </mat-card>

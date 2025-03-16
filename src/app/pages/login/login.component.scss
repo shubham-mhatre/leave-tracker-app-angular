@@ -1,9 +1,7 @@
 
 .login-card {
     max-width: 400px;
-    // margin: 2rem auto;
-    // padding: 1rem;
-    top: 10rem;
+    top: 8rem;
     left: 30rem;
     padding: 1rem;
   }
@@ -20,5 +18,15 @@
   mat-card-header {
     display: flex;
     justify-content: center;
-    padding-bottom: 1rem;
+  }
+
+  .mat-mdc-unelevated-button[disabled], .mat-mdc-unelevated-button.mat-mdc-button-disabled{
+    background-color: #a5a8ef !important;
+  }
+
+  .login-card img {
+    max-width: 20%;   /* Ensures the image fits within the card */
+    height: auto;      /* Keeps aspect ratio */
+    display: block;
+    margin: 10px auto;
   }

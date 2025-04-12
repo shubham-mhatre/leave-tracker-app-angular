@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Employee, ParentDepartment } from '../../models/model';
+import { ChildDepartment, Employee, ParentDepartment } from '../../models/model';
 import { MasterService } from '../../services/master.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -31,6 +31,7 @@ export class EmployeeComponent implements OnInit{
   @ViewChild('drawer') drawer!: MatDrawer;
 
   parentdepartments:ParentDepartment[]=[];
+  childdepartments:ChildDepartment[]=[];
 
   employeeListData:Employee[]=[];
   constructor(private masterService:MasterService,private snackBar: MatSnackBar){
@@ -67,12 +68,18 @@ export class EmployeeComponent implements OnInit{
 
   loadParentDepartmentData(){
     this.masterService.getAllParentDepartment().subscribe((res)=>{
-      debugger;
       this.parentdepartments=res.data;
       console.log("getting parentdepartment data");
       console.log(res);
       console.log("Parent departments loaded:", this.parentdepartments);
     })
+  }
+
+  onParentDepartmentChange(selectedDeptId: number): void {
+    console.log("Selected parent Department ID:", selectedDeptId);
+    this.masterService.getChildDepartmentByParentId(selectedDeptId).subscribe((res)=>{
+      this.childdepartments= res.data;
+    });
   }
 
   showError(message: string) {

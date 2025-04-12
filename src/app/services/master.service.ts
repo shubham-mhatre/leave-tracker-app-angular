@@ -20,6 +20,9 @@ export class MasterService {
 
   getAllParentDepartment():Observable<APIResponse>{
     return this.http.get<APIResponse>(this.baseURL + 'getallparentdepartment');
+  }
 
+  getChildDepartmentByParentId(id:number):Observable<APIResponse>{
+    return this.http.get<APIResponse>(this.baseURL + 'child-department/'+id);
   }
 }

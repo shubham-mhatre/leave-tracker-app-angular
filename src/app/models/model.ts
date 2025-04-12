@@ -28,8 +28,7 @@ export interface APIResponse{
 
 export interface ParentDepartment{
     deptId:number,
-    departmentName:string,
-    childDepartments: ChildDepartment[];
+    departmentName:string
 }
 
 export interface ChildDepartment {

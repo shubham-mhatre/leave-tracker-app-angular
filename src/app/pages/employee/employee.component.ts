@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Employee } from '../../models/model';
+import { Employee, ParentDepartment } from '../../models/model';
 import { MasterService } from '../../services/master.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -30,6 +30,8 @@ export class EmployeeComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('drawer') drawer!: MatDrawer;
 
+  parentdepartments:ParentDepartment[]=[];
+
   employeeListData:Employee[]=[];
   constructor(private masterService:MasterService,private snackBar: MatSnackBar){
 
@@ -41,6 +43,7 @@ export class EmployeeComponent implements OnInit{
 
   ngOnInit() {
     this.loadAllEmployeeData();
+    this.loadParentDepartmentData();
   }
 
   loadAllEmployeeData(){
@@ -60,6 +63,16 @@ export class EmployeeComponent implements OnInit{
       this.dataSource.data = [];
       this.showError(error.message);
     });
+  }
+
+  loadParentDepartmentData(){
+    this.masterService.getAllParentDepartment().subscribe((res)=>{
+      debugger;
+      this.parentdepartments=res.data;
+      console.log("getting parentdepartment data");
+      console.log(res);
+      console.log("Parent departments loaded:", this.parentdepartments);
+    })
   }
 
   showError(message: string) {

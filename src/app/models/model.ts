@@ -26,3 +26,14 @@ export interface APIResponse{
     data:any
 }
 
+export interface ParentDepartment{
+    deptId:number,
+    departmentName:string,
+    childDepartments: ChildDepartment[];
+}
+
+export interface ChildDepartment {
+    childDeptId: number;
+    parentDeptId: number;
+    role: string;
+}

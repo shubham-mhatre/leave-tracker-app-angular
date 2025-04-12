@@ -14,13 +14,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-employee',
   standalone: true,
   imports: [MatTableModule, MatPaginatorModule, MatTooltipModule, MatButtonModule, MatIconModule,MatPaginator,
-    MatSnackBarModule,MatDrawer,MatSidenavModule,MatFormFieldModule,MatInputModule,MatSelectModule
+    MatSnackBarModule,MatDrawer,MatSidenavModule,MatFormFieldModule,MatInputModule,MatSelectModule,FormsModule
   ],
   templateUrl: './employee.component.html',
   styleUrl: './employee.component.scss'
@@ -30,9 +31,20 @@ export class EmployeeComponent implements OnInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('drawer') drawer!: MatDrawer;
 
+  //password related start
+  rePassword: string = '';
+  hidePassword: boolean = true;
+  hideRePassword: boolean = true;
+  //password related end
+
+  //save call related employee object
+  employeeObj:Employee=new Employee();
+
+  //dropdown data of parent & child department of save modal
   parentdepartments:ParentDepartment[]=[];
   childdepartments:ChildDepartment[]=[];
 
+  //grid data object for employee list
   employeeListData:Employee[]=[];
   constructor(private masterService:MasterService,private snackBar: MatSnackBar){
 
@@ -91,6 +103,16 @@ export class EmployeeComponent implements OnInit{
     });
   }
 
+  showSuccess(message: string) {
+    this.snackBar.open(message, "Close", {
+      duration: 3000,
+      panelClass: ['snackbar-success'],
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+  }
+  
+
   onEdit(employee: Employee){
 
   }
@@ -100,8 +122,16 @@ export class EmployeeComponent implements OnInit{
   }
 
   onSave() {
-    console.log('Employee saved!');
-    this.drawer.close();
+    console.log('Employee saved!' , this.employeeObj);
+    this.masterService.createEmployee(this.employeeObj).subscribe((res)=>{
+      if(res.result){
+        this.showSuccess(res.message);
+        this.drawer.close();
+        this.loadAllEmployeeData();
+      }else{
+        this.showError(res.message);
+      }
+    })
   }
 
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { APIResponse } from '../models/model';
+import { APIResponse, Employee } from '../models/model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class MasterService {
   }
 
   getAllEmployee():Observable<APIResponse>{
-    return this.http.get<APIResponse>(this.baseURL + 'getallemployees');
+    return this.http.get<APIResponse>(this.baseURL + 'employee');
   }
 
   getAllParentDepartment():Observable<APIResponse>{
@@ -24,5 +24,9 @@ export class MasterService {
 
   getChildDepartmentByParentId(id:number):Observable<APIResponse>{
     return this.http.get<APIResponse>(this.baseURL + 'child-department/'+id);
+  }
+
+  createEmployee(obj:Employee):Observable<APIResponse>{
+    return this.http.post<APIResponse>(`${this.baseURL}employee`,obj);
   }
 }

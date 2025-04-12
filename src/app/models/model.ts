@@ -1,9 +1,10 @@
 export class Employee{
     employeeId:number;
     employeeName:string;
-    contactNo:string;
-    emailId:string;
+    contactNumber:string;
+    employeeEmailId:string;
     deptId:number;
+    childDeptId:number;
     password:string;
     gender:string;
     role:string;
@@ -11,12 +12,14 @@ export class Employee{
     constructor(){
         this.employeeId=0;
         this.employeeName='';
-        this.contactNo='';
-        this.emailId='';
+        this.contactNumber='';
+        this.employeeEmailId='';
         this.deptId=0;
+        this.childDeptId=0;
         this.password='';
         this.gender='';
         this.role='';
+
     }
 }
 

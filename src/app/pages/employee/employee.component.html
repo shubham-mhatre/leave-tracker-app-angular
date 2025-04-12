@@ -7,19 +7,19 @@
         <!-- Employee Name -->
         <mat-form-field appearance="outline">
           <mat-label>Employee Name</mat-label>
-          <input matInput placeholder="Enter Name">
+          <input matInput placeholder="Enter Name" [(ngModel)]="employeeObj.employeeName" name="employeeName">
         </mat-form-field>
   
         <!-- Email -->
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Enter Email">
+          <input matInput placeholder="Enter Email" [(ngModel)]="employeeObj.employeeEmailId" name="employeeEmailId">
         </mat-form-field>
   
         <!-- Gender -->
         <mat-form-field appearance="outline">
           <mat-label>Gender</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="employeeObj.gender" name="gender">
             <mat-option value="male">Male</mat-option>
             <mat-option value="female">Female</mat-option>
           </mat-select>
@@ -28,13 +28,13 @@
         <!-- Contact Number -->
         <mat-form-field appearance="outline">
           <mat-label>Contact Number</mat-label>
-          <input matInput placeholder="Enter Contact Number">
+          <input matInput placeholder="Enter Contact Number" [(ngModel)]="employeeObj.contactNumber" name="contactNumber">
         </mat-form-field>
   
         <!-- Parent Department -->
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline">
           <mat-label>Department</mat-label>
-          <mat-select (selectionChange)="onParentDepartmentChange($event.value)">
+          <mat-select (selectionChange)="onParentDepartmentChange($event.value)" [(ngModel)]="employeeObj.deptId" name="deptId">
             @for (dept of parentdepartments; track dept.deptId) {
               <mat-option [value]="dept.deptId">
                 {{ dept.departmentName }}
@@ -43,15 +43,49 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
+        <mat-form-field appearance="outline">
           <mat-label>Child Department</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="employeeObj.childDeptId" name="childDeptId">
             @for (dept of childdepartments; track dept.childDeptId) {
               <mat-option [value]="dept.childDeptId">
                 {{ dept.role }}
               </mat-option>
             }
           </mat-select>
+        </mat-form-field>
+
+        <!--password field-->
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 [type]="hidePassword ? 'password' : 'text'"
+                 placeholder="Enter Password"
+                 [(ngModel)]="employeeObj.password"
+                 name="password">
+          <button mat-icon-button
+                  matSuffix
+                  (click)="hidePassword = !hidePassword"
+                  [attr.aria-label]="'Toggle password visibility'"
+                  [attr.aria-pressed]="!hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!--Re-enter password field-->
+        <mat-form-field appearance="outline">
+          <mat-label>Re-Password</mat-label>
+          <input matInput
+                 [type]="hideRePassword ? 'password' : 'text'"
+                 placeholder="Re-Enter Password"
+                 [(ngModel)]="rePassword"
+                 name="rePassword">
+          <button mat-icon-button
+                  matSuffix
+                  (click)="hideRePassword = !hideRePassword"
+                  [attr.aria-label]="'Toggle password visibility'"
+                  [attr.aria-pressed]="!hideRePassword">
+            <mat-icon>{{ hideRePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
         </mat-form-field>
   
         <!-- Actions -->
@@ -62,7 +96,7 @@
             </mat-icon>  
             Cancel
           </button>
-          <button type="button" mat-raised-button color="primary">
+          <button type="button" (click)="onSave()" mat-raised-button color="primary">
             <mat-icon>
                 check
             </mat-icon>

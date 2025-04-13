@@ -113,8 +113,29 @@ export class EmployeeComponent implements OnInit{
   }
   
 
-  onEdit(employee: Employee){
+  onEditEmployee(employee: Employee){
+    console.log("data of employee to be edited : ",employee);
+    this.employeeObj=employee;
+    //as child data is cascade on parent department id, we need to call 
+    //child department api so populate and append here in child dropdown.
+    this.masterService.getChildDepartmentByParentId(employee.deptId).subscribe((res)=>{
+      this.childdepartments=res.data;
+      this.drawer.open();
+    });
+  }
 
+  onUpdateEmployee(){
+    console.log('Employee to be updated !' , this.employeeObj);
+    this.masterService.updateEmployee(this.employeeObj).subscribe((res)=>{
+      if(res.result){
+        this.drawer.close()
+        this.showSuccess(res.message);
+        this.employeeObj=new Employee();
+        this.loadAllEmployeeData();
+      }else{
+        this.showError(res.message);
+      }
+    });
   }
 
   onDeleteEmployee(employeeId:number){
@@ -141,6 +162,11 @@ export class EmployeeComponent implements OnInit{
         this.showError(res.message);
       }
     })
+  }
+
+  onCancel(){
+    this.drawer.close();
+    this.employeeObj=new Employee();
   }
 
 }

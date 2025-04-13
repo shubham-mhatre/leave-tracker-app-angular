@@ -163,7 +163,7 @@
             <button mat-icon-button matTooltip="Edit">
                <img src="images/edit.gif" alt="edit"/>
             </button>
-            <button mat-icon-button matTooltip="Delete">
+            <button mat-icon-button matTooltip="Delete" (click)="onDeleteEmployee(element.employeeId)">
                 <img src="images/bin.gif" alt="delete"/>
             </button>
           </td>

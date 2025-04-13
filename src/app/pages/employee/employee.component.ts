@@ -117,8 +117,16 @@ export class EmployeeComponent implements OnInit{
 
   }
 
-  onDelete(employee: Employee){
-
+  onDeleteEmployee(employeeId:number){
+    console.log("delete employee with id : ",employeeId)
+    this.masterService.deleteEmployee(employeeId).subscribe((res)=>{
+      if(res.result){
+        this.showSuccess(res.message);
+        this.loadAllEmployeeData();
+      }else{
+        this.showError(res.message);
+      }
+    })
   }
 
   onSave() {
@@ -126,6 +134,7 @@ export class EmployeeComponent implements OnInit{
     this.masterService.createEmployee(this.employeeObj).subscribe((res)=>{
       if(res.result){
         this.showSuccess(res.message);
+        this.employeeObj=new Employee();//re-initialize for new data entry
         this.drawer.close();
         this.loadAllEmployeeData();
       }else{

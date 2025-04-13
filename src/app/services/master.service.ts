@@ -29,4 +29,8 @@ export class MasterService {
   createEmployee(obj:Employee):Observable<APIResponse>{
     return this.http.post<APIResponse>(`${this.baseURL}employee`,obj);
   }
+
+  deleteEmployee(id:number):Observable<APIResponse>{
+    return this.http.delete<APIResponse>(`${this.baseURL}employee/${id}`);
+  }
 }
